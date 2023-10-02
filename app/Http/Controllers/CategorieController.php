@@ -18,9 +18,13 @@ class CategorieController extends Controller
     {
         $data =  (Categorie::paginate(3));
         return CategorieResource::collection($data);
-        return $this->success($data, 'liste des categories');
     }
 
+    public function index()
+    {
+        $data =  (Categorie::all());
+        return $this->success(CategorieResource::collection($data), '');
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -35,18 +39,19 @@ class CategorieController extends Controller
     {
 
         $libelle = $request->libelle;
+        $type = $request->type;
         $libelle =  ucfirst(strtolower($libelle));
 
         $libe =  Categorie::onlyTrashed()
             ->where('libelle', $request->libelle)
             ->first();
-
         if ($libe) {
             $libe->restore();
             return $this->success(new CategorieResource($libe), 'Restauré avec succès', 200);
         } else {
             $categorie = Categorie::create([
-                'libelle' => $libelle
+                'libelle' => $libelle,
+                'type' => $type
             ]);
             return $this->success(new CategorieResource($categorie), 'Ajouté avec succès', 200);
         }
@@ -110,7 +115,6 @@ class CategorieController extends Controller
 
     public function search(Request $request)
     {
-
         $libelle = $request->libelle;
         if (strlen($libelle) < 3) {
             return $this->error('', 504, 'veillez au moins trois caracteres');

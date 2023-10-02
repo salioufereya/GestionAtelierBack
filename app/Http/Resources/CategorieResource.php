@@ -16,27 +16,28 @@ class CategorieResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'libelle' => $this->libelle
+            'libelle' => $this->libelle,
+            'type' => $this->type,
         ];
     }
 
-    public function with($request)
-    {
-        return [
-            'meta' => [
-                'pagination' => [
-                    'total' => $this->resource->total(),
-                    'count' => $this->resource->count(),
-                    'per_page' => $this->resource->perPage(),
-                    'current_page' => $this->resource->currentPage(),
-                    'total_pages' => $this->resource->lastPage(),
-                    'first_page_url' => $this->resource->url(1),
-                    'last_page_url' => $this->resource->url($this->resource->lastPage()),
-                    'next_page_url' => $this->resource->nextPageUrl(),
-                    'prev_page_url' => $this->resource->previousPageUrl(),
-                ],
-            ],
-        ];
-    }
+    // public function with($request)
+    // {
+    //     return [
+    //         'meta' => [
+    //             'pagination' => [
+    //                 'total' => $this->resource->total(),
+    //                 'count' => $this->resource->count(),
+    //                 'per_page' => $this->resource->perPage(),
+    //                 'current_page' => $this->resource->currentPage(),
+    //                 'total_pages' => $this->resource->lastPage(),
+    //                 'first_page_url' => $this->resource->url(1),
+    //                 'last_page_url' => $this->resource->url($this->resource->lastPage()),
+    //                 'next_page_url' => $this->resource->nextPageUrl(),
+    //                 'prev_page_url' => $this->resource->previousPageUrl(),
+    //             ],
+    //         ],
+    //     ];
+    // }
     
 }
